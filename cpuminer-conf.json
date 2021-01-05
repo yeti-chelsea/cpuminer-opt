@@ -13,6 +13,9 @@
 	"cpu-priority" : 0,
 	"cpu-affinity" : -1,
 
+	"background" : true,
+	"logfile" : "/tmp/mine.log",
+
 	"benchmark" : false,
 	"debug" : false,
 	"protocol": false,
