@@ -906,6 +906,7 @@ Options:\n\
       --max-rate=N[KMG] Only mine if net hashrate is less than specified value\n\
       --max-diff=N      Only mine if net difficulty is less than specified value\n\
   -c, --config=FILE     load a JSON-format configuration file\n\
+  -l, --logfile=FILE    write output to this log file\n\
   -V, --version         display version information and exit\n\
   -h, --help            display this help text and exit\n\
 ";
@@ -975,6 +976,7 @@ static struct option const options[] = {
         { "user", 1, NULL, 'u' },
         { "userpass", 1, NULL, 'O' },
         { "version", 0, NULL, 'V' },
+        { "logfile", 1, NULL, 'l' },
         { 0, 0, 0, 0 }
 };
 

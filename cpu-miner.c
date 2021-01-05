@@ -206,12 +206,13 @@ static double   last_targetdiff = 0.;
 static uint32_t hi_temp = 0;
 #endif
 
+FILE *log_stream = NULL;
   
 static char const short_options[] =
 #ifdef HAVE_SYSLOG_H
 	"S"
 #endif
-	"a:b:Bc:CDf:hK:m:n:N:p:Px:qr:R:s:t:T:o:u:O:V";
+	"a:b:Bc:CDf:hK:m:n:N:p:Px:qr:R:s:t:T:o:u:O:Vl:";
 
 static struct work g_work __attribute__ ((aligned (64))) = {{ 0 }};
 time_t g_work_time = 0;
@@ -3241,6 +3242,13 @@ void parse_arg(int key, char *arg )
       break;
 	case 'V':
 		show_version_and_exit();
+	case 'l':
+		log_stream = fopen((const char*)arg, "a+");
+		if(!log_stream) {
+			fprintf(stderr, "Failed to open file %s\n", arg);
+			show_usage_and_exit(1);
+		}
+		break;
 	case 'h':
 		show_usage_and_exit(0);
 
@@ -3546,6 +3554,7 @@ int main(int argc, char *argv[])
 
 	pthread_mutex_init(&applog_lock, NULL);
 
+	log_stream = stdout;
 	show_credits();
 
 	rpc_user = strdup("");

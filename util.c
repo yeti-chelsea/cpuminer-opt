@@ -49,6 +49,7 @@
 #include "algo-gate-api.h"
 
 //extern pthread_mutex_t stats_lock;
+extern FILE* log_stream;
 
 struct data_buffer {
 	void		*buf;
@@ -159,8 +160,8 @@ void applog2( int prio, const char *fmt, ... )
          use_colors ? CL_N : ""
       );
       pthread_mutex_lock(&applog_lock);
-      vfprintf(stdout, f, ap);   /* atomic write to stdout */
-      fflush(stdout);
+      vfprintf(log_stream, f, ap);   /* atomic write to log_stream */
+      fflush(log_stream);
       free(f);
       pthread_mutex_unlock(&applog_lock);
    }
@@ -235,8 +236,8 @@ void applog(int prio, const char *fmt, ...)
 			use_colors ? CL_N : ""
 		);
 		pthread_mutex_lock(&applog_lock);
-		vfprintf(stdout, f, ap);	/* atomic write to stdout */
-		fflush(stdout);
+		vfprintf(log_stream, f, ap);	/* atomic write to log_stream */
+		fflush(log_stream);
 		free(f);
 		pthread_mutex_unlock(&applog_lock);
 	}
